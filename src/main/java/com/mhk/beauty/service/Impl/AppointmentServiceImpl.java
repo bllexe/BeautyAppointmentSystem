@@ -2,10 +2,12 @@ package com.mhk.beauty.service.Impl;
 
 import com.mhk.beauty.entity.Appointment;
 import com.mhk.beauty.entity.Client;
+import com.mhk.beauty.entity.Staff;
 import com.mhk.beauty.error.NotFoundException;
 import com.mhk.beauty.repository.AppointmentRepository;
 import com.mhk.beauty.service.AppointmentService;
 import com.mhk.beauty.service.ClientService;
+import com.mhk.beauty.service.StaffService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,18 +18,30 @@ public class AppointmentServiceImpl implements AppointmentService {
 
   private final AppointmentRepository appointmentRepository;
   private final ClientService clientService;
+  private final StaffService staffService;
+
 
   public AppointmentServiceImpl(AppointmentRepository appointmentRepository,
-      ClientService clientService) {
+      ClientService clientService, StaffService staffService) {
     this.appointmentRepository = appointmentRepository;
     this.clientService = clientService;
+    this.staffService = staffService;
   }
 
 
   @Override
+  public Appointment createAppointment(String staffUsername, Long clientId, Appointment appointment) {
 
-  public Appointment createAppointment(Appointment appointment) {
-    return null;
+    Client clientInDb = clientService.getById(clientId);
+    Staff staffInDb = staffService.getByUsername(staffUsername);
+
+    if (clientInDb != null && staffInDb != null) {
+      appointment.setClient(clientInDb);
+      appointment.setStaff(staffInDb);
+    } else {
+      throw new IllegalArgumentException("unexpected problem occurred.");
+    }
+    return appointmentRepository.save(appointment);
 
   }
 

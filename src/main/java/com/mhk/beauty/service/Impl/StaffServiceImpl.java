@@ -40,7 +40,7 @@ public class StaffServiceImpl implements StaffService {
     Staff inDB = staffRepository.findByUsername(username);
 
     if (inDB == null) {
-      throw new NotFoundException();
+      throw new IllegalArgumentException("username does not exist : " + username);
     }
     return inDB;
   }
@@ -55,14 +55,11 @@ public class StaffServiceImpl implements StaffService {
   @Override
   public Staff update(String username, Staff staff) {
     Staff inDB = staffRepository.findByUsername(username);
+    if (inDB == null) {
+      throw new IllegalArgumentException("staff does not exist");
+    }
     inDB.setUsername(staff.getUsername());
     inDB.setPassword(staff.getPassword());
     return staffRepository.save(inDB);
-  }
-
-  @Override
-  public Boolean delete(Staff staff) {
-    staffRepository.delete(staff);
-    return true;
   }
 }

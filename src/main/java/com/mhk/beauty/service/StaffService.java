@@ -14,7 +14,4 @@ public interface StaffService {
 
   Staff update(String username, Staff staff);
 
-  Boolean delete(Staff staff);
-
-
 }

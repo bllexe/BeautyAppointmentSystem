@@ -1,9 +1,11 @@
 package com.mhk.beauty.entity;
 
-import com.sun.istack.NotNull;
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "appointment")
@@ -27,21 +30,31 @@ public class Appointment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private String name;
+
+  private String description;
+
   @Column(name = "date_created")
   @CreationTimestamp
   private Date dateCreated;
 
-  private Date appointmentStartTime;
+  private LocalDateTime startTime;
 
-  private Date appointmentEndTime;
+  private LocalDateTime endTime;
+
+  @Enumerated(EnumType.STRING)
+  @Column(name = "status")
+  private AppointmentStatus status;
 
   @ManyToOne // buraya client_id ekle
   private Client client;
 
   @ManyToOne
-  private Management management;
+  private Staff staff;
 
   @ManyToOne
   private Payment payment;
+
+
 
 }

@@ -36,18 +36,18 @@ public class ManagementServiceImpl implements ManagementService {
 
   @Override
   public Management updateManagement(Long id, Management management) {
+
     Management inDB = managementRepository.getById(id);
+
+    if (inDB == null) {
+      throw new IllegalArgumentException("Management does not exist");
+    }
+
     inDB.setName(management.getName());
     inDB.setEmail(management.getEmail());
+    inDB.setPhoneNumber(management.getPhoneNumber());
     inDB.setPassword(management.getPassword());
     return managementRepository.save(inDB);
-  }
-
-
-  @Override
-  public Boolean deleteManagement(Long managementId) {
-    managementRepository.deleteById(managementId);
-    return true;
   }
 
   @Override

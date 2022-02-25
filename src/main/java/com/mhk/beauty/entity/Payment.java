@@ -1,6 +1,7 @@
 package com.mhk.beauty.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "payment")
@@ -35,6 +38,12 @@ public class Payment {
   private Long paidAmount;
 
   private Long remainingAmount;
+
+  @CreationTimestamp
+  private Date paidDate;
+
+  @UpdateTimestamp
+  private Date updatedDate;
 
   private Boolean paid = Boolean.FALSE;
 

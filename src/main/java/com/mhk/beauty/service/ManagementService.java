@@ -16,6 +16,5 @@ public interface ManagementService {
 
   Management updateManagement(Long id, Management management);
 
-  Boolean deleteManagement(Long managementId);
 
 }
