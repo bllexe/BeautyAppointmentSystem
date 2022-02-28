@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface AppointmentService {
 
-  Appointment createAppointment(String staffUsername, Long ClientId, Appointment appointment);
+  Appointment createAppointment(Long ClientId, Appointment appointment);
 
   Page<Appointment> getAppointmentsByClient(Long clientId, Long appointmentsId, Pageable pageable);
 

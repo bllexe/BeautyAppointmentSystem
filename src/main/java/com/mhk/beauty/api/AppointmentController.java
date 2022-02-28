@@ -2,6 +2,7 @@ package com.mhk.beauty.api;
 
 import com.mhk.beauty.entity.Appointment;
 import com.mhk.beauty.service.AppointmentService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +19,10 @@ public class AppointmentController {
     this.appointmentService = appointmentService;
   }
 
-  @PostMapping(path = "/create/{staffUsername}/{clientId}")
-  public Appointment createAppointment(@PathVariable String staffUsername, @PathVariable Long clientId,
+  @PostMapping("/create/{clientId}")
+  public ResponseEntity<Appointment> createAppointment( @PathVariable Long clientId,
       @RequestBody Appointment appointment) {
-    return appointmentService.createAppointment(staffUsername, clientId, appointment);
+    return ResponseEntity.ok(appointmentService.createAppointment(clientId, appointment));
   }
 
 

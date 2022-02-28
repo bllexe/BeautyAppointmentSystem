@@ -52,8 +52,8 @@ public class Appointment {
   @ManyToOne
   private Staff staff;
 
-  @ManyToOne
-  private Payment payment;
+ /* @ManyToOne
+  private Payment payment;*/
 
 
 

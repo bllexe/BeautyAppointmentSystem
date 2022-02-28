@@ -1,7 +1,6 @@
 package com.mhk.beauty.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,42 +13,27 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "payment")
+@Table(name = "treatment")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Payment {
+public class Treatment {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private BigDecimal totalAmount;
+  private String treatmentName;
 
-  private BigDecimal paidAmount;
+  private String description;
 
-  private BigDecimal remainingAmount;
-
-  @CreationTimestamp
-  private Date paidDate;
-
-  @UpdateTimestamp
-  private Date updatedDate;
-
-  @Enumerated(EnumType.STRING)
-  private PaymentType paymentType;
+  private BigDecimal unitPrice;
 
   @ManyToOne
   private Client client;
 
-  @ManyToOne
-  private Treatment treatment;
-
-  private Boolean isPaid = Boolean.FALSE;
 
 }

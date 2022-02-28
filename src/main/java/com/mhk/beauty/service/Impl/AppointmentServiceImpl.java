@@ -30,16 +30,13 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
   @Override
-  public Appointment createAppointment(String staffUsername, Long clientId, Appointment appointment) {
+  public Appointment createAppointment(Long clientId, Appointment appointment) {
 
     Client clientInDb = clientService.getById(clientId);
-    Staff staffInDb = staffService.getByUsername(staffUsername);
 
-    if (clientInDb != null && staffInDb != null) {
+    if (clientInDb != null ) {
       appointment.setClient(clientInDb);
-      appointment.setStaff(staffInDb);
-    } else {
-      throw new IllegalArgumentException("unexpected problem occurred.");
+      appointment.setStaff(clientInDb.getStaff());
     }
     return appointmentRepository.save(appointment);
 
