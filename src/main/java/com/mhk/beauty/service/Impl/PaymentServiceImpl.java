@@ -100,25 +100,3 @@ public class PaymentServiceImpl implements PaymentService {
 
 }
 
-/*
-@Override
-  public Payment save(Long clientId, Payment payment) {
-
-    Client clientInDb = clientService.getById(clientId);
-
-    if (clientInDb == null) {
-      throw new IllegalArgumentException("client does not found");
-    } else {
-      payment.setClient(clientInDb);
-      if (payment.getIsPaid() == true) {
-        payment.setRemainingAmount(payment.getRemainingAmount().subtract(payment.getPaidAmount()));
-      } else {
-        payment.setTotalAmount(getClientTotalPrice(clientInDb.getId()));
-        payment.setRemainingAmount(payment.getTotalAmount().subtract(payment.getPaidAmount()));
-        payment.setIsPaid(true);
-      }
-    }
-
-    return paymentRepository.save(payment);
-  }
-*/
