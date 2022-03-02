@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface PaymentService {
 
-  Payment save(Long treatmentId,  Payment payment);
+  Payment save(Long clientId,  Payment payment);
 
-  List<Payment> getPaymentsByClient(Long clientId);
+  List<Payment> findByClientId(Long clientId);
 
   Payment getPaymentByPaymentType(Payment payment);
 

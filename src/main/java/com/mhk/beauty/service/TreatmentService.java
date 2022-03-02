@@ -2,7 +2,6 @@ package com.mhk.beauty.service;
 
 import com.mhk.beauty.entity.Treatment;
 import java.util.List;
-import org.springframework.data.domain.Sort;
 
 public interface TreatmentService {
 
@@ -10,7 +9,7 @@ public interface TreatmentService {
 
   Treatment findById(Long id);
 
-  List<Treatment> findTreatmentsByClientId(Long clientId, Sort sort);
+  List<Treatment> findByClientId(Long clientId);
 
   Treatment update(Long id, Treatment treatment);
 

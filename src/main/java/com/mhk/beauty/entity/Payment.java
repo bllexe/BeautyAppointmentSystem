@@ -47,9 +47,6 @@ public class Payment {
   @ManyToOne
   private Client client;
 
-  @ManyToOne
-  private Treatment treatment;
-
   private Boolean isPaid = Boolean.FALSE;
 
 }

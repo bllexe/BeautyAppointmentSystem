@@ -3,7 +3,6 @@ package com.mhk.beauty.api;
 import com.mhk.beauty.entity.Treatment;
 import com.mhk.beauty.service.TreatmentService;
 import java.util.List;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,14 +33,14 @@ public class TreatmentController {
     return ResponseEntity.ok(treatmentService.findById(id));
   }
 
-  @GetMapping("/getByClientId/{clientId}")
-  public ResponseEntity<List<Treatment>> getTreatmentsByClientId(@PathVariable Long clientId, Sort sort) {
-    return ResponseEntity.ok(treatmentService.findTreatmentsByClientId(clientId, sort));
+  @GetMapping("/findByClientId/{clientId}")
+  public ResponseEntity<List<Treatment>> findByClientId(@PathVariable Long clientId) {
+    return ResponseEntity.ok(treatmentService.findByClientId(clientId));
   }
 
   @PutMapping("update/{id}")
   public ResponseEntity<Treatment> updateTreatment(@PathVariable Long id, @RequestBody Treatment treatment) {
-    return ResponseEntity.ok(treatmentService.update(id,treatment));
+    return ResponseEntity.ok(treatmentService.update(id, treatment));
   }
 
 }

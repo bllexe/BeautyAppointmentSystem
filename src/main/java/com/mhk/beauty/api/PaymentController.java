@@ -24,9 +24,9 @@ public class PaymentController {
   }
 
 
-  @PostMapping("/save/{treatmentId}")
-  public ResponseEntity<Payment> savePayment(@PathVariable Long treatmentId, @RequestBody Payment payment) {
-    return ResponseEntity.ok(paymentService.save(treatmentId, payment));
+  @PostMapping("/save/{clientId}")
+  public ResponseEntity<Payment> savePayment(@PathVariable Long clientId, @RequestBody Payment payment) {
+    return ResponseEntity.ok(paymentService.save(clientId, payment));
   }
 
 }

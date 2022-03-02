@@ -27,20 +27,27 @@ public class PaymentServiceImpl implements PaymentService {
 
 
   @Override
-  public Payment save(Long treatmentId, Payment payment) {
-    Treatment treatmentInDb = treatmentService.findById(treatmentId);
-    if (treatmentInDb != null) {
-      payment.setClient(treatmentInDb.getClient());
-    } else{
-      throw new IllegalArgumentException("client does not found");
-    }
+  public Payment save(Long clientId, Payment payment) {
 
+    Client clientInDb = clientService.getById(clientId);
+
+    if (clientInDb == null) {
+      throw new IllegalArgumentException("client does not found");
+    } else {
+      payment.setClient(clientInDb);
+      payment.setTotalAmount(setTotalPrice(clientInDb.getId()));
+    }
+    payment.setRemainingAmount(countRemainingAmount(clientId));
     return paymentRepository.save(payment);
   }
 
   @Override
-  public List<Payment> getPaymentsByClient(Long clientId) {
-    return null;
+  public List<Payment> findByClientId(Long clientId) {
+    Client inDb = clientService.getById(clientId);
+    if (inDb == null) {
+      throw new IllegalArgumentException("client does not exist");
+    }
+    return paymentRepository.findByClientId(clientId);
   }
 
   @Override
@@ -49,10 +56,67 @@ public class PaymentServiceImpl implements PaymentService {
     return null;
   }
 
+  public BigDecimal countRemainingAmount(Long clientId) {
+    BigDecimal remainingAmount = new BigDecimal("0");
+    Client innDb = clientService.getById(clientId);
 
-  public BigDecimal computeTreatmentPrice(Long treatmentId, Payment payment ){
-
-    return null;
+    if (innDb == null) {
+      throw new IllegalArgumentException();
+    }
+    remainingAmount = setTotalPrice(clientId).subtract(getTotalPaidAmount(clientId));
+    return remainingAmount;
   }
 
+  public BigDecimal getTotalPaidAmount(Long clientId) {
+    BigDecimal totalPaidAmount = new BigDecimal("0");
+    Client clientInDb = clientService.getById(clientId);
+
+    List<Payment> payments = findByClientId(clientId);
+
+    for (Payment payment : payments) {
+      if (payment.getClient().getId() == clientInDb.getId()) {
+        totalPaidAmount = payment.getPaidAmount().add(totalPaidAmount);
+      }
+    }
+    return totalPaidAmount;
+  }
+
+  public BigDecimal setTotalPrice(Long clientId) {
+    BigDecimal totalPrice = new BigDecimal("0");
+    Client clientInDb = clientService.getById(clientId);
+
+    List<Treatment> treatments = treatmentService.findByClientId(clientInDb.getId());
+
+    for (Treatment treatment : treatments) {
+      if (treatment.getClient().getId() == clientInDb.getId()) {
+        totalPrice = treatment.getPrice().add(totalPrice);
+      }
+    }
+    return totalPrice;
+  }
+
+
 }
+
+/*
+@Override
+  public Payment save(Long clientId, Payment payment) {
+
+    Client clientInDb = clientService.getById(clientId);
+
+    if (clientInDb == null) {
+      throw new IllegalArgumentException("client does not found");
+    } else {
+      payment.setClient(clientInDb);
+      if (payment.getIsPaid() == true) {
+        payment.setRemainingAmount(payment.getRemainingAmount().subtract(payment.getPaidAmount()));
+      } else {
+        payment.setTotalAmount(getClientTotalPrice(clientInDb.getId()));
+        payment.setRemainingAmount(payment.getTotalAmount().subtract(payment.getPaidAmount()));
+        payment.setIsPaid(true);
+      }
+    }
+
+    return paymentRepository.save(payment);
+  }
+*/

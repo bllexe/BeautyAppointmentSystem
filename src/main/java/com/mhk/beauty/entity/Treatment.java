@@ -1,6 +1,7 @@
 package com.mhk.beauty.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "treatment")
@@ -30,7 +32,10 @@ public class Treatment {
 
   private String description;
 
-  private BigDecimal unitPrice;
+  private BigDecimal price;
+
+  @CreationTimestamp
+  private Date dateCreated;
 
   @ManyToOne
   private Client client;
