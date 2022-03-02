@@ -33,8 +33,6 @@ public class Payment {
 
   private BigDecimal paidAmount;
 
-  private BigDecimal remainingAmount;
-
   @CreationTimestamp
   private Date paidDate;
 

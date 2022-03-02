@@ -1,6 +1,7 @@
 package com.mhk.beauty.service;
 
 import com.mhk.beauty.entity.Payment;
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface PaymentService {
@@ -11,4 +12,5 @@ public interface PaymentService {
 
   Payment getPaymentByPaymentType(Payment payment);
 
+  BigDecimal countRemainingAmount(Long clientId);
 }

@@ -3,6 +3,7 @@ package com.mhk.beauty.service.Impl;
 import com.mhk.beauty.entity.Client;
 import com.mhk.beauty.entity.Payment;
 import com.mhk.beauty.entity.Treatment;
+import com.mhk.beauty.error.NotFoundException;
 import com.mhk.beauty.repository.PaymentRepository;
 import com.mhk.beauty.service.ClientService;
 import com.mhk.beauty.service.PaymentService;
@@ -37,7 +38,6 @@ public class PaymentServiceImpl implements PaymentService {
       payment.setClient(clientInDb);
       payment.setTotalAmount(setTotalPrice(clientInDb.getId()));
     }
-    payment.setRemainingAmount(countRemainingAmount(clientId));
     return paymentRepository.save(payment);
   }
 
@@ -56,14 +56,16 @@ public class PaymentServiceImpl implements PaymentService {
     return null;
   }
 
+  @Override
   public BigDecimal countRemainingAmount(Long clientId) {
     BigDecimal remainingAmount = new BigDecimal("0");
     Client innDb = clientService.getById(clientId);
 
-    if (innDb == null) {
-      throw new IllegalArgumentException();
+    if (innDb != null) {
+      remainingAmount = setTotalPrice(clientId).subtract(getTotalPaidAmount(clientId));
+    } else {
+      throw new NotFoundException();
     }
-    remainingAmount = setTotalPrice(clientId).subtract(getTotalPaidAmount(clientId));
     return remainingAmount;
   }
 
