@@ -10,6 +10,8 @@ import com.mhk.beauty.service.PaymentService;
 import com.mhk.beauty.service.TreatmentService;
 import java.math.BigDecimal;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -51,9 +53,8 @@ public class PaymentServiceImpl implements PaymentService {
   }
 
   @Override
-  public Payment getPaymentByPaymentType(Payment payment) {
-
-    return null;
+  public Page<Payment> getAllPayments(Pageable pageable) {
+    return paymentRepository.findAll(pageable);
   }
 
   @Override

@@ -2,7 +2,6 @@ package com.mhk.beauty.api;
 
 import com.mhk.beauty.entity.Staff;
 import com.mhk.beauty.service.StaffService;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -31,23 +30,33 @@ public class StaffController {
     return ResponseEntity.ok(staffService.save(id, staff));
   }
 
-  @GetMapping("/findByStaffUsername/{username}")
-  public ResponseEntity<Staff> getStaffByUsername(@PathVariable(value = "username") String username) {
+  @GetMapping("/findByStaffId/{id}")
+  public ResponseEntity<Staff> getStaffById(@PathVariable(value = "id") Long id) {
 
-    Staff staff = staffService.getByUsername(username);
+    Staff staff = staffService.getById(id);
     return ResponseEntity.ok(staff);
   }
 
+  @GetMapping("/all")
+  public ResponseEntity<Page<Staff>> getAllStaff(Pageable pageable) {
+    return ResponseEntity.ok(staffService.gelAllStaff(pageable));
+  }
+
   @GetMapping("/findByManagementId/{id}")
-  public ResponseEntity<Page<Staff>> getStaffOfManagement(@PathVariable(value = "id") Long id, Pageable pageable) {
+  public ResponseEntity<Page<Staff>> getStaffOfManagement(@PathVariable(value = "id") Long id,
+      Pageable pageable) {
     return ResponseEntity.ok(staffService.getStaffOfManagement(id, pageable));
   }
 
-  @PutMapping("/update/{username}")
-  public ResponseEntity<Staff> updateStaff(@PathVariable String username, @RequestBody Staff staff) {
-    return ResponseEntity.ok(staffService.update(username, staff));
+  @PutMapping("/update/{id}")
+  public ResponseEntity<Staff> updateStaff(@PathVariable Long id, @RequestBody Staff staff) {
+    return ResponseEntity.ok(staffService.update(id, staff));
   }
 
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<Boolean> deleteStaffById(@PathVariable Long id) {
+    return ResponseEntity.ok(staffService.deleteById(id));
+  }
 
 
 }

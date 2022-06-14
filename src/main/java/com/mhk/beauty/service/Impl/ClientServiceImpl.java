@@ -1,15 +1,10 @@
 package com.mhk.beauty.service.Impl;
 
-import com.mhk.beauty.entity.Appointment;
 import com.mhk.beauty.entity.Client;
 import com.mhk.beauty.entity.Staff;
-import com.mhk.beauty.error.NotFoundException;
 import com.mhk.beauty.repository.ClientRepository;
-import com.mhk.beauty.service.AppointmentService;
 import com.mhk.beauty.service.ClientService;
 import com.mhk.beauty.service.StaffService;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,9 +24,9 @@ public class ClientServiceImpl implements ClientService {
 
 
   @Override
-  public Client save(Client client, String username) {
+  public Client save(Client client, Long id) {
 
-    Staff staffInDb = staffService.getByUsername(username);
+    Staff staffInDb = staffService.getById(id);
 
     if (staffInDb != null) {
       client.setStaff(staffInDb);
@@ -47,8 +42,8 @@ public class ClientServiceImpl implements ClientService {
   }
 
   @Override
-  public Page<Client> getClientByNameContains(String name, Pageable pageable) {
-    return clientRepository.getClientByNameContains(name, pageable);
+  public List<Client> getClientByNameContains(String name) {
+    return clientRepository.getClientByNameContains(name);
   }
 
   @Override
@@ -71,9 +66,9 @@ public class ClientServiceImpl implements ClientService {
   }
 
   @Override
-  public Page<Client> getClientsOfStaff(String username, Pageable pageable) {
-    Staff staffInDb = staffService.getByUsername(username);
-    return clientRepository.getClientByStaff(staffInDb, pageable);
+  public List<Client> getClientsOfStaff(Long id) {
+    Staff staffInDb = staffService.getById(id);
+    return clientRepository.getClientByStaff(staffInDb);
   }
 
   @Override

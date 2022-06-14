@@ -1,22 +1,23 @@
 package com.mhk.beauty.service;
 
 import com.mhk.beauty.entity.Appointment;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
+import org.springframework.data.domain.Sort;
 
 public interface AppointmentService {
 
   Appointment createAppointment(Long ClientId, Appointment appointment);
 
-  Page<Appointment> getAppointmentsByClient(Long clientId, Long appointmentsId, Pageable pageable);
-
-  Page<Appointment> getAppointmentsByDate(String dateCreated, Pageable pageable);
-
   Appointment getAppointmentById(Long appointmentId);
+
+  List<Appointment> findAppointmentsByClientId(Long clientId, Sort sort);
+
+  List<Appointment> findByStaff(Long staffId, Sort sort);
 
   Appointment update(Long id, Appointment appointment);
 
-  Boolean delete(Appointment appointment);
+  Boolean delete(Long id);
 
 
+  List<Appointment> getAllAppointments(Sort sort);
 }

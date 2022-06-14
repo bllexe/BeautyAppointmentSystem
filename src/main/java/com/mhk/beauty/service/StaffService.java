@@ -8,10 +8,16 @@ public interface StaffService {
 
   Staff save(Long id, Staff staff);
 
-  Staff getByUsername(String username);
+  Staff getById(Long id);
+
+  Page<Staff> gelAllStaff(Pageable pageable);
 
   Page<Staff> getStaffOfManagement(Long id, Pageable pageable);
 
-  Staff update(String username, Staff staff);
+  Staff update(Long id, Staff staff);
+
+  Staff findById(Long staffId);
+
+  Boolean deleteById(Long id);
 
 }

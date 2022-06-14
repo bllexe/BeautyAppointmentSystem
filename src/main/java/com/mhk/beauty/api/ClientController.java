@@ -5,7 +5,6 @@ import com.mhk.beauty.service.ClientService;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,20 +25,20 @@ public class ClientController {
     this.clientService = clientService;
   }
 
-  @PostMapping("/{username}")
-  public ResponseEntity<Client> createClient(@RequestBody Client client, @PathVariable String username) {
+  @PostMapping("/{id}")
+  public ResponseEntity<Client> createClient(@RequestBody Client client, @PathVariable Long id) {
 
-    return ResponseEntity.ok(clientService.save(client, username));
+    return ResponseEntity.ok(clientService.save(client, id));
   }
 
-  @GetMapping()
+  @GetMapping("all")
   public ResponseEntity<Page<Client>> getAllClients(Pageable pageable) {
     return ResponseEntity.ok(clientService.getAllClients(pageable));
   }
 
-  @GetMapping("/findByUsername/{username}")
-  public ResponseEntity<Page<Client>> getClientsByStaff(@PathVariable String username, Pageable pageable) {
-    return ResponseEntity.ok(clientService.getClientsOfStaff(username, pageable));
+  @GetMapping("/findByStaffId/{id}")
+  public ResponseEntity<List<Client>> getClientsByStaff(@PathVariable Long id) {
+    return ResponseEntity.ok(clientService.getClientsOfStaff(id));
   }
 
   @GetMapping("/findById/{id}")
@@ -48,8 +47,8 @@ public class ClientController {
   }
 
   @GetMapping("/findByName/{name}")
-  public ResponseEntity<Page<Client>> getClientByName(@PathVariable String name, Pageable pageable) {
-    return ResponseEntity.ok(clientService.getClientByNameContains(name, pageable));
+  public ResponseEntity<List<Client>> getClientByName(@PathVariable String name) {
+    return ResponseEntity.ok(clientService.getClientByNameContains(name));
   }
 
   @GetMapping("/findByPhoneNumber/{phoneNumber}")

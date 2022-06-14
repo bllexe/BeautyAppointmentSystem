@@ -1,4 +1,4 @@
-package com.mhk.beauty.entity;
+package com.mhk.beauty.entity.enums;
 
 public enum AppointmentStatus {
   GELDİ,

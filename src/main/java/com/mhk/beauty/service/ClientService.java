@@ -7,17 +7,17 @@ import org.springframework.data.domain.Pageable;
 
 public interface ClientService {
 
-  Client save(Client client, String username);
+  Client save(Client client, Long id);
 
   Client getById(Long id);
 
   Page<Client> getAllClients(Pageable pageable);
 
-  Page<Client> getClientByNameContains(String name, Pageable pageable);
+  List<Client> getClientByNameContains(String name);
 
   List<Client> getClientsByPhoneNumber(String phoneNumber);
 
-  Page<Client> getClientsOfStaff(String username, Pageable pageable);
+  List<Client> getClientsOfStaff(Long id);
 
   Client update(Long id, Client client);
 

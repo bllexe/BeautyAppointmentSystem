@@ -5,10 +5,7 @@ import com.mhk.beauty.entity.Treatment;
 import com.mhk.beauty.repository.TreatmentRepository;
 import com.mhk.beauty.service.ClientService;
 import com.mhk.beauty.service.TreatmentService;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service

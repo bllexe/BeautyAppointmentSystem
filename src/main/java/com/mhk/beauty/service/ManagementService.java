@@ -1,8 +1,7 @@
 package com.mhk.beauty.service;
 
 import com.mhk.beauty.entity.Management;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
 
 public interface ManagementService {
 
@@ -10,7 +9,7 @@ public interface ManagementService {
 
   Management getManagementById(Long managementId);
 
-  Page<Management> getAllManagement(Pageable pageable);
+  List<Management> getAllManagement();
 
   Management findManagementByEmail(String email);
 

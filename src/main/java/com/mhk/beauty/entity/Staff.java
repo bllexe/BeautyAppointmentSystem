@@ -38,6 +38,7 @@ public class Staff {
   private String password;
 
   @ManyToOne
+  @JsonIgnore
   private Management management;
 
 }

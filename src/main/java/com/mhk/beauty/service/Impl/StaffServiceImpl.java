@@ -36,13 +36,18 @@ public class StaffServiceImpl implements StaffService {
   }
 
   @Override
-  public Staff getByUsername(String username) {
-    Staff inDB = staffRepository.findByUsername(username);
+  public Staff getById(Long id) {
+    Staff inDB = staffRepository.findById(id).get();
 
     if (inDB == null) {
-      throw new IllegalArgumentException("username does not exist : " + username);
+      throw new IllegalArgumentException("username does not exist : " + id);
     }
     return inDB;
+  }
+
+  @Override
+  public Page<Staff> gelAllStaff(Pageable pageable) {
+    return staffRepository.findAll(pageable);
   }
 
   @Override
@@ -53,13 +58,24 @@ public class StaffServiceImpl implements StaffService {
   }
 
   @Override
-  public Staff update(String username, Staff staff) {
-    Staff inDB = staffRepository.findByUsername(username);
+  public Staff update(Long id, Staff staff) {
+    Staff inDB = staffRepository.findById(id).get();
     if (inDB == null) {
       throw new IllegalArgumentException("staff does not exist");
     }
     inDB.setUsername(staff.getUsername());
     inDB.setPassword(staff.getPassword());
     return staffRepository.save(inDB);
+  }
+
+  @Override
+  public Staff findById(Long staffId) {
+    return staffRepository.findById(staffId).get();
+  }
+
+  @Override
+  public Boolean deleteById(Long id) {
+    staffRepository.deleteById(id);
+    return true;
   }
 }

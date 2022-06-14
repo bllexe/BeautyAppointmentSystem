@@ -3,6 +3,7 @@ package com.mhk.beauty.service.Impl;
 import com.mhk.beauty.entity.Management;
 import com.mhk.beauty.repository.ManagementRepository;
 import com.mhk.beauty.service.ManagementService;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,9 @@ public class ManagementServiceImpl implements ManagementService {
   }
 
   @Override
-  public Page<Management> getAllManagement(Pageable pageable) {
+  public List<Management> getAllManagement() {
 
-    return managementRepository.findAll(pageable);
+    return managementRepository.findAll();
   }
 
   @Override

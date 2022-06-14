@@ -1,5 +1,6 @@
 package com.mhk.beauty.entity;
 
+import com.mhk.beauty.entity.enums.PaymentType;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Entity;

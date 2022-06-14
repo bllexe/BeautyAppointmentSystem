@@ -1,5 +1,6 @@
 package com.mhk.beauty.entity;
 
+import com.mhk.beauty.entity.enums.AppointmentStatus;
 import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "appointment")
@@ -24,6 +26,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@DynamicUpdate
 public class Appointment {
 
   @Id
@@ -37,6 +40,9 @@ public class Appointment {
   @Column(name = "date_created")
   @CreationTimestamp
   private Date dateCreated;
+
+  @UpdateTimestamp
+  private Date dateUpdated;
 
   private LocalDateTime startTime;
 
@@ -54,7 +60,6 @@ public class Appointment {
 
  /* @ManyToOne
   private Payment payment;*/
-
 
 
 }

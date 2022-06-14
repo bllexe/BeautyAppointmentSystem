@@ -2,16 +2,18 @@ package com.mhk.beauty.repository;
 
 import com.mhk.beauty.entity.Appointment;
 import java.util.Date;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-  Page<Appointment> getAppointmentByDateCreated(Date dateCreated, Pageable pageable);
+  List<Appointment> findByClientId(Long clientId, Sort sort);
 
-  Page<Appointment> getAppointmentsByClient(Long clientId, Long appointmentId, Pageable pageable);
+  List<Appointment> findByStaffId(Long staffId, Sort sort);
 
-  Page<Appointment> getAppointmentsByDateCreatedGreaterThan(Date dateCreated, Pageable pageable);
+  //List<Appointment> findByStartTimeDateLessThan(Date startTimeDate);
+
+  List<Appointment> getByStartTime(Date date);
 
 }
